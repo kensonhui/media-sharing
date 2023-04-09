@@ -1,3 +1,5 @@
 backend/node_modules
+backend/uploads
 frontend/node_modules
+mongo_db_container/*
 .DS_STORE
