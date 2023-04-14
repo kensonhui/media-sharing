@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import multer from "multer";
 import fs from "fs";
+import path from 'path';
 
 dotenv.config();
 const app = express();
@@ -41,14 +42,19 @@ app.get("/push", async (req: Request, res: Response) => {
   }
 })
 
-app.post("/api/files", upload.single("file"), (req, res: Response) => {
+app.post("/api/files", upload.single("file"), (req, res: Response, next) => {
   console.log(req.file);
   console.log(req.body);
-  // s3Client.send(new PutObjectCommand({
-  //   Bucket: "files",
-  //   Key: name,
-  //   Body: file
-  // }));
+  if (!req.file) {
+    return next(new Error("File upload failed"));
+  }
+  const { filename, destination, originalname  } = req.file;
+  const fileContent = fs.readFileSync(path.join(destination, filename));
+  s3Client.send(new PutObjectCommand({
+    Bucket: process.env.AWS_FILE_BUCKET_NAME,
+    Key: originalname,
+    Body: fileContent
+  }));
   res.send({ data: req.body});
 })
 

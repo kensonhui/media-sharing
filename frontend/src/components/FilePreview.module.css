@@ -1,0 +1,4 @@
+.prevPage {
+    position: absolute !important;
+    z-index: 1;
+}
