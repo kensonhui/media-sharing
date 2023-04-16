@@ -14,7 +14,7 @@ const upload = multer({ dest: 'uploads/'});
 
 const EXPOSED_PORT = 5000;
 const corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost"
 }
 
 app.use(cors(corsOptions));

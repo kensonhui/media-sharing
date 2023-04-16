@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:18-alpine as build
 
 WORKDIR /app
 
@@ -8,7 +8,23 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "start"]
+RUN npm run build
 
-EXPOSE 3000
+
+FROM nginx:1.20-alpine
+
+#!/bin/sh
+
+COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
+
+
+# Remove default nginx pages
+RUN rm -rf /etc/nginx/html/*
+
+# Add react build to nginx pages
+COPY --from=build /app/build /etc/nginx/html
+
+EXPOSE 3000 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
