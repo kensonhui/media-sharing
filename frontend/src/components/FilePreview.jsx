@@ -9,7 +9,7 @@ const FilePreview = ({ file }) => {
   const [page, setPage] = useState(1);
   const [renderedPage, setRenderedPage] = useState(1);
   const [numPages, setNumPages] = useState(0);
-  const [pdfContainerWidth, setPdfContainerWidth] = useState(500);
+  const [pdfContainerWidth, setPdfContainerWidth] = useState(450);
   const pdfContainerRef = useRef(null);
   const onDocumentLoadSuccess = (pdf) => {
     setPage(1);
@@ -31,7 +31,12 @@ const FilePreview = ({ file }) => {
   const isLoading = renderedPage !== page;
   return (
     <Grid placeItems="center" ref={pdfContainerRef}>
-      <Grid placeItems="center">
+      <Flex placeItems="center">
+        <IconButton
+          onClick={() => setPage((current) => (current - 1))}
+          isDisabled={page === 1}
+          icon={<ArrowLeftIcon />} 
+          />
         <Document file={file}
           onLoadSuccess={onDocumentLoadSuccess}
         >
@@ -52,21 +57,16 @@ const FilePreview = ({ file }) => {
             onRenderSuccess={() => setRenderedPage(page)}
           />
         </Document>
-      </Grid>
-      <Flex alignItems="center">
-        <IconButton
-          onClick={() => setPage((current) => (current - 1))}
-          isDisabled={page === 1}
-          icon={<ArrowLeftIcon />} 
-          />
-        <Text fontSize="large" m="1rem">
-          {`${page}/${numPages - 1}`}
-        </Text>
         <IconButton 
           onClick={() => {setPage((current) => current + 1)}}
           isDisabled={page === numPages - 1}
           icon={<ArrowRightIcon />}
         />
+      </Flex>
+      <Flex alignItems="center">
+        <Text fontSize="large" m="1rem">
+          {`${page}/${numPages - 1}`}
+        </Text>
       </Flex>
     </Grid>
   );

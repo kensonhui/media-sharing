@@ -3,10 +3,13 @@ services:
     container_name: frontend
     image: node:latest
     ports:
-      - "80:80"
+      - "3000:3000"
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "./frontend/node_modules:/app/node_modules"
+
   backend:
     container_name: backend
     image: node:19-alpine3.16
@@ -14,7 +17,11 @@ services:
       - "5000:5000"
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    volumes:
+      - "./backend/node_modules:/app/node_modules"
+      - "~/.aws/:/root/.aws:ro"
+
   mongodb_container:
     container_name: database
     image: mongo
@@ -30,4 +37,3 @@ volumes:
   frontend:
   backend:
   mongodb_db_container:
-      

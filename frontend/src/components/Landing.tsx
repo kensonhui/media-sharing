@@ -9,8 +9,8 @@ const Landing = () => (
       boxShadow="xs"
       borderRadius="0.25rem"
     >
-      <Text fontSize="3xl" align="center">
-        Share, annotate, discuss academic resources for the courses
+      <Text fontSize="3xl" align="center" color="black">
+        Share, annotate, discuss academic resources for your courses
       </Text>
 
       <Center m="1rem">

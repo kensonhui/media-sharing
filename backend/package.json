@@ -6,9 +6,7 @@
   "scripts": {
     "start": "node build/server.js",
     "build": "tsc -p .",
-    "dev": "nodemon src/server.ts",
-    "docker-build": "docker build -t backend .",
-    "docker-run": "docker run -it -p 5000:5000 backend"
+    "dev": "nodemon src/server.ts"
   },
   "author": "",
   "license": "ISC",

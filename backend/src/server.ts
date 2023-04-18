@@ -5,6 +5,7 @@ import s3Client from './services/s3client';
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import multer from "multer";
+import mongodb from "mongodb";
 import fs from "fs";
 import path from 'path';
 
