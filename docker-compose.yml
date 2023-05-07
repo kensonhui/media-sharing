@@ -15,19 +15,21 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-  mongodb_container:
-    container_name: database
-    image: mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpassword
-    ports:
-      - 27017:27017
     volumes:
-      - mongodb_db_container:/data/db
+      - "~/.aws/:/root/.aws:ro"
+  # mongodb_container:
+  #   container_name: database
+  #   image: mongo
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: rootpassword
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - mongodb_db_container:/data/db
 
 volumes:
   frontend:
   backend:
-  mongodb_db_container:
+  # mongodb_db_container:
       
