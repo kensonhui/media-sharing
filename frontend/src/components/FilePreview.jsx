@@ -1,8 +1,7 @@
-import { Container, Flex, Grid, IconButton, Text } from "@chakra-ui/react";
-import { Document, Page } from "react-pdf";
+import {Flex, Grid, IconButton, Text } from "@chakra-ui/react";
+import { Document, Page } from "@react-pdf/renderer";
 import { useEffect, useState, useRef } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { render } from "@testing-library/react";
 import styles from "./FilePreview.module.css";
 
 const FilePreview = ({ file }) => {

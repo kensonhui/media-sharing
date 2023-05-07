@@ -11,8 +11,6 @@ import {
 import { bytesToMegaBytes } from "../services/byteConversion";
 import axios from "axios";
 import FilePreview from "./FilePreview";
-import "react-pdf/dist/esm/Page/TextLayer.css";
-import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 const Dashboard = () => {
   const [file, setFile] = useState<File>();
   const [numPages, setNumPages] = useState<number>(0);
