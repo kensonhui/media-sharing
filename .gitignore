@@ -4,3 +4,4 @@ frontend/node_modules
 mongo_db_container/*
 .DS_STORE
 *.pem
+backend/.env

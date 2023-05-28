@@ -1,7 +1,7 @@
 services:
   frontend:
     container_name: frontend
-    image: node:18-alpine
+    image: node:19-alpine3.16
     ports:
       - "3000:3000"
     build:
@@ -19,6 +19,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile.dev
     volumes:
+      - "./backend:/app"
       - "./backend/node_modules:/app/node_modules"
       - "~/.aws/:/root/.aws:ro"
 

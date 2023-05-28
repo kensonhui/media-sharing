@@ -1,7 +1,7 @@
 services:
   frontend:
     container_name: frontend
-    image: node:18-alpine
+    image: node:19-alpine3.17
     ports:
       - "80:80"
     build:

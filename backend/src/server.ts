@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from "cors";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import s3Client from './services/s3client';
+import mongodbClient from './services/atlasClient';
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import multer from "multer";
@@ -17,6 +18,9 @@ const EXPOSED_PORT = 5000;
 const corsOptions = {
   origin: "http://localhost"
 }
+
+const database = process.env.ATLAS_DATABASE;
+const pdfCollection = process.env.ATLAS_PDF_COLLECTION;
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -43,6 +47,20 @@ app.get("/push", async (req: Request, res: Response) => {
   }
 })
 
+app.get("/dbtest", async (req: Request, res: Response) => {
+  const db = mongodbClient.db(database);
+  const collection = db.collection(pdfCollection);
+  let newPost = {
+    "username": "Anonymous",
+    "fileKey": "blahblah",
+  }
+  try {
+    const response = await collection.insertOne(newPost);
+    res.send(response);
+  } catch (err) {
+    console.error(err);
+  }
+})
 app.post("/api/files", upload.single("file"), (req, res: Response, next) => {
   console.log(req.file);
   console.log(req.body);
