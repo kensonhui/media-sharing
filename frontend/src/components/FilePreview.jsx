@@ -1,8 +1,14 @@
 import {Flex, Grid, IconButton, Text } from "@chakra-ui/react";
-import { Document, Page } from "@react-pdf/renderer";
+import { pdfjs, Document, Page } from "react-pdf";
 import { useEffect, useState, useRef } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import styles from "./FilePreview.module.css";
+
+// react-pdf configuration
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import 'react-pdf/dist/esm/Page/TextLayer.css';
+import worker from 'pdfjs-dist/build/pdf.worker.entry';
+pdfjs.GlobalWorkerOptions.workerSrc = worker;
 
 const FilePreview = ({ file }) => {
   const [page, setPage] = useState(1);
@@ -13,6 +19,7 @@ const FilePreview = ({ file }) => {
   const onDocumentLoadSuccess = (pdf) => {
     setPage(1);
     setNumPages(pdf.numPages);
+    console.log(pdf);
   }
   useEffect(() => {
     const handleResize = () => {

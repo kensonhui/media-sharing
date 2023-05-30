@@ -8,6 +8,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.dev
     volumes:
+      - "./frontend/src:/app/src"
       - "./frontend/node_modules:/app/node_modules"
 
   backend:
@@ -19,7 +20,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile.dev
     volumes:
-      - "./backend:/app"
+      - "./backend/src:/app/src"
       - "./backend/node_modules:/app/node_modules"
       - "~/.aws/:/root/.aws:ro"
 

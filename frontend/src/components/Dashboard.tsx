@@ -7,13 +7,16 @@ import {
   Grid,
   Input,
   Text,
+  Textarea,
+  FormLabel,
 } from "@chakra-ui/react";
 import { bytesToMegaBytes } from "../services/byteConversion";
 import axios from "axios";
 import FilePreview from "./FilePreview";
 const Dashboard = () => {
   const [file, setFile] = useState<File>();
-  const [numPages, setNumPages] = useState<number>(0);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
@@ -27,6 +30,8 @@ const Dashboard = () => {
     const formData = new FormData();
     formData.append("name", "hello");
     formData.append("file", file);
+    formData.append("title", title);
+    formData.append("description", description);
 
     axios
       .post("http://localhost:5000/api/files", formData, {
@@ -38,22 +43,32 @@ const Dashboard = () => {
   return (
     <Flex direction="column">
       {file && <FilePreview file={file} />}
-      <Center boxShadow="xs" p="3rem">
-        <label htmlFor="file-upload">
-          {file ? "Upload another file" : "Upload a file"}
-        </label>
-        <Input
-          id="file-upload"
-          display="none"
-          type="file"
-          onChange={handleFileChange}
-        />
-      </Center>
+      {!file && (
+        <Button>
+          <label htmlFor="file-upload">Upload a file</label>
+        </Button>
+      )}
+      <Input
+        id="file-upload"
+        display="none"
+        type="file"
+        onChange={handleFileChange}
+      />
       {file && (
-        <Center>
-          <Text>File Size: {bytesToMegaBytes(file.size)}</Text>
+        <Flex direction="column">
+          <FormLabel> Title</FormLabel>
+          <Input onChange={({ target: { value } }) => setTitle(value)} />
+          <FormLabel> Description </FormLabel>
+          <Textarea
+            placeholder="A small description of the file:"
+            onChange={({ target: { value } }) => setDescription(value)}
+          />
+          <Text>File Size: {bytesToMegaBytes(file.size)} MB</Text>
           <Button onClick={handleUploadClick}>Upload</Button>
-        </Center>
+          <Button>
+            <label htmlFor="file-upload">Choose another FIle</label>
+          </Button>
+        </Flex>
       )}
     </Flex>
   );

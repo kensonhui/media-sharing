@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
 import Navbar from "./Navbar";
+import Browse from "./Browse";
 import ErrorRoute from "./ErrorRoute";
 
 interface LayoutProps {
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} errorElement={<ErrorRoute />} />
           <Route path="/upload" element={<Dashboard />} />
+          <Route path="/browse" element={<Browse />} />
         </Routes>
       </Layout>
     </BrowserRouter>
